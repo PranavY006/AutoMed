@@ -1,0 +1,14 @@
+{
+  "name": "automed",
+  "version": "1.0.0",
+  "description": "Hello Team AutoMed \r This will be our Repo for everything",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
