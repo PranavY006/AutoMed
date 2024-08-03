@@ -6,22 +6,29 @@
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import React, { useState } from "react"
 import axios from "axios"
 
-export default function Components() {
-
+export default function Signin() {
   const [values, setValues] = useState({
     username: '',
     password: ''
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
     event.preventDefault();
     axios.post('http://localhost:8081', values)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .then(res => {
+        if (res.data.Status === "Success") {
+          navigate('/home'); 
+        } else {
+          alert(res.data.Error);
+        }
+      })
+      .then(err => console.log(err));
   }
 
   return (
@@ -79,5 +86,5 @@ export default function Components() {
         </div>
       </div>
     </div>
-  )
+  );
 }
