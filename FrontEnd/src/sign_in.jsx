@@ -1,14 +1,9 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/BmxjYMg96Eu
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Link, useNavigate } from 'react-router-dom'
-import React, { useState } from "react"
-import axios from "axios"
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
 
 export default function Signin() {
   const [values, setValues] = useState({
@@ -16,24 +11,23 @@ export default function Signin() {
     password: ''
   });
 
+  axios.defaults.withCredentials = true;
+  
   const navigate = useNavigate();
 
-  const handleSubmit = (event, values) => {
-    event.preventDefault();
-    const navigate = useNavigate(); // Ensure useNavigate is correctly used within a component
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(values);
     axios.post('http://localhost:8081/', values)
       .then(res => {
+        console.log(res.data.Status);
         if (res.data.Status === "Success") {
-          navigate('/home'); 
+          navigate('/home1'); 
         } else {
-          alert(res.data.Error);
+          alert(res.data.Message);
         }
       })
-      .catch(err => {
-        console.error('Request failed:', err); // Use .catch to handle errors
-        alert('An error occurred. Please try again.');
-      });
+      .catch(err => console.log(err));
   };
 
   return (
@@ -52,7 +46,7 @@ export default function Signin() {
             <h2 className="text-3xl font-bold">Login</h2>
             <p className="text-muted-foreground">Enter your username and password to access your account.</p>
           </div>
-          {/* <form onSubmit={handleSubmit}> */}
+          <form onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="username">Username</Label>
@@ -78,19 +72,18 @@ export default function Signin() {
                   onChange={e => setValues({ ...values, password: e.target.value })}
                 />
               </div>
-              <Link to="/home" >
-              <br></br>
-              <Button type="submit" className="w-full">
+              
+              <Button className="w-full">
                 Login
               </Button>
-              </Link>
+              
               <div className="text-center mt-4">
-                <Link to="/signup" className="text-muted-foreground">
+                <Link to="/signup" prefetch={undefined} className="text-muted-foreground">
                   Don't have an account? Sign up
                 </Link>
               </div>
             </div>
-          {/* </form> */}
+          </form>
         </div>
       </div>
     </div>

@@ -107,7 +107,9 @@ export default function Component() {
         </nav>
       </aside>
       <div className="flex flex-1 flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        
         <main className="flex-1 bg-muted/40 p-4 sm:p-6">
+        
           <div className="mx-auto max-w-3xl space-y-8">
             <div>
               <h1 className="text-3xl font-bold">Welcome to Acme Inc</h1>

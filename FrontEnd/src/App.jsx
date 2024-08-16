@@ -6,6 +6,8 @@ import Signin from './sign_in'
 import Signup from './sign_up'
 import Home from './Home'
 import Dashboard from './Dashboard'
+import Home1 from './Home1'
+
 
 function App() {
 
@@ -16,6 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup/>}></Route>
         <Route path="/home" element={<Home/>}></Route>
         <Route path="/dash" element={<Dashboard/>}></Route>
+        <Route path="/home1" element={<Home1/>}></Route>
 
       </Routes>
     </BrowserRouter>
