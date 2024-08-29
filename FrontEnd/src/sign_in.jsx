@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function Signin() {
   const [values, setValues] = useState({
-    username: '',
+    user_id: '',
     password: ''
   });
 
@@ -17,12 +17,19 @@ export default function Signin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
     axios.post('http://localhost:8081/', values)
       .then(res => {
-        console.log(res.data.Status);
         if (res.data.Status === "Success") {
-          navigate('/home1'); 
+          const position = res.data.position;
+          if (position === 'admin') {
+            navigate('/home');
+          } else if (position === 'doctor') {
+            navigate('/doctor');
+          } else if (position === 'nurse') {
+            navigate('/user');
+          } else {
+            navigate('/home1');
+          }
         } else {
           alert(res.data.Message);
         }
@@ -44,19 +51,19 @@ export default function Signin() {
         <div className="mx-auto w-[350px] space-y-6">
           <div className="space-y-2 text-center">
             <h2 className="text-3xl font-bold">Login</h2>
-            <p className="text-muted-foreground">Enter your username and password to access your account.</p>
+            <p className="text-muted-foreground">Enter your user_id and password to access your account.</p>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="user_id">user_id</Label>
                 <Input
-                  id="username"
-                  name="username"
+                  id="user_id"
+                  name="user_id"
                   type="text"
-                  placeholder="Enter your username"
+                  placeholder="Enter your user_id"
                   required
-                  onChange={e => setValues({ ...values, username: e.target.value })}
+                  onChange={e => setValues({ ...values, user_id: e.target.value })}
                 />
               </div>
               <div className="space-y-2">

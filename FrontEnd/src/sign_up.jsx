@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Signup() {
   const [values, setValues] = useState({
-    username: '',
+    user_id: '',
     password: '',
     position: ''
   });
@@ -59,9 +59,9 @@ export default function Signup() {
                 <Label htmlFor="name">Name</Label>
                 <Input 
                   id="name" 
-                  name="username" 
+                  name="user_id"
                   type="text" 
-                  onChange={e => setValues({ ...values, username: e.target.value })}
+                  onChange={e => setValues({ ...values, user_id: e.target.value })}
                   placeholder="Enter your name" 
                   required 
                 />
