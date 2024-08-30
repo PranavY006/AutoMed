@@ -12,3 +12,12 @@ export const getAllPatients = asyncHandler(async (req, res) => {
   });
 });
 
+// New function for adding a new patient
+export const addPatient = asyncHandler(async (req, res) => {
+    const { id, patient_fname, phone, email } = req.body;
+    const sql = "INSERT INTO patient (patient_id, patient_fname, phone, email) VALUES (?, ?, ?, ?)";
+    db.query(sql, [id, patient_fname, phone, email], (err, data) => {
+      if (err) return res.status(500).json({ Message: "Server side error" });
+      return res.status(201).json({ Message: "Patient added successfully", patient: { id, patient_fname, phone, email } });
+    });
+  });

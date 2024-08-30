@@ -49,4 +49,4 @@ CREATE TABLE ⁠ patient ⁠ (
   ⁠ phone ⁠ bigint unsigned NOT NULL,
   PRIMARY KEY (⁠ patient_id ⁠),
   UNIQUE KEY ⁠ patient_id_UNIQUE ⁠ (⁠ patient_id ⁠)
-) 
+)
