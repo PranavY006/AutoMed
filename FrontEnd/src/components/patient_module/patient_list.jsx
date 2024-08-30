@@ -1,21 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from '@/components/ui/input';
+import axios from 'axios';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+
 
 
 
 export default function patient_list() {
     const [activeTab, setActiveTab] = useState('search');
-    const [patients, setPatients] = useState([
-      { id: 1, name: 'John Doe', mobile: '123-456-7890', email: 'admin@gmail.com'},
-      { id: 2, name: 'Jane Smith', mobile: '987-654-3210', email: 'whatever@gag'},
-      { id: 3, name: 'Alice Johnson', mobile: '555-666-7777', email: 'helo@fa'},
-    ]);
+    const [patients, setPatients] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+      axios.get('http://localhost:8081/patients')
+        .then(response => {
+          setPatients(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching the patient data!", error);
+        });
+    }, []);
+
+    const handleSearch = (e) => {
+      setSearchQuery(e.target.value);
+    };
+
+    const filteredPatients = searchQuery
+    ? patients.filter(patient => {
+        const query = searchQuery.toLowerCase();
+        const queryNumber = Number(searchQuery);
+        return (
+          (patient.id && (patient.id.toString().toLowerCase().includes(query) || patient.id === queryNumber)) ||
+          (patient.patient_fname && patient.patient_fname.toLowerCase().includes(query)) ||
+          (patient.email && patient.email.toLowerCase().includes(query))
+        );
+      })
+    : patients;
 
     const handleTabChange = (tab) => {
       setActiveTab(tab);
     };
+    //console.log("Search Query:", searchQuery);
+    console.log("Filtered patients:", filteredPatients); // Debugging log
 
     return (
       <div className="flex h-screen w-full">
@@ -41,7 +68,8 @@ export default function patient_list() {
                 <div className="bg-white p-4 rounded shadow">
                   <h2 className="text-xl font-bold mb-4">Search Patients</h2>
                   <div className="flex gap-4 mb-4">
-                    <Input placeholder="Search by Patient ID" />
+                    <Input type="text" placeholder="Search by Patient ID" value={searchQuery}
+          onChange={handleSearch} />
                   </div>
 
                   <div className="overflow-auto">
@@ -52,15 +80,15 @@ export default function patient_list() {
                       <TableHead>Name</TableHead>
                       <TableHead>Mobile</TableHead>
                       <TableHead>email</TableHead>
-                      <TableHead>Action</TableHead>
+                      <TableHead>Appointment</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {patients.map((patient) => (
+                    {filteredPatients.map((patient) => (
                       <TableRow key={patient.id}>
-                        <TableCell>{patient.id}</TableCell>
-                        <TableCell>{patient.name}</TableCell>
-                        <TableCell>{patient.mobile}</TableCell>
+                        <TableCell>{patient.patient_id}</TableCell>
+                        <TableCell>{patient.patient_fname}</TableCell>
+                        <TableCell>{patient.phone}</TableCell>
                         <TableCell>{patient.email}</TableCell>
                         <TableCell>
                           <Button variant="outline">Action</Button>

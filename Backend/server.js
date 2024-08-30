@@ -14,10 +14,12 @@ app.use(cookieParser());
 
 // Importing routes
 import loginRoutes from './routes/Login/login_routes.js';
+import patientRoutes from './routes/patient/patient_routes.js';
 
 app.listen(8081, () => {
   console.log("Server running on port 8081");
 });
 
 app.use('/', loginRoutes);
+app.use('/', patientRoutes);
 
