@@ -3,7 +3,7 @@ import db from '../../config/db_server.js';
 import jwt from 'jsonwebtoken';
 
 
-const user_auth = asyncHandler(async (req, res) => {
+export const user_auth = asyncHandler(async (req, res) => {
     const sql = "SELECT * FROM auth WHERE user_id = ?";
     db.query(sql, [req.body.user_id], (err, data) => {
       if (err) return res.json({ Message: "Server side error" });
@@ -24,4 +24,19 @@ const user_auth = asyncHandler(async (req, res) => {
     });
 });
 
-export default user_auth;
+export const verifyUser = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ Message: "Token is required, please provide it." });
+  } else {
+    jwt.verify(token, "our-jsonwebtoken-secret-key", (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ Message: "Authentication error, invalid token." });
+      } else {
+        req.user_id = decoded.user_id;
+        req.position = decoded.position;
+        next();
+      }
+    });
+  }
+};

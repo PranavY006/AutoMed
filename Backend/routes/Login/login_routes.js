@@ -1,6 +1,5 @@
-import verifyUser from "../../controllers/auth/verifyUser.js";
 import { Router } from "express";
-import user_auth from "../../controllers/auth/user.js";
+import {verifyUser , user_auth} from "../../controllers/auth/user.js";
 import user_logout from "../../controllers/auth/logout.js";
 
 const router = Router();
