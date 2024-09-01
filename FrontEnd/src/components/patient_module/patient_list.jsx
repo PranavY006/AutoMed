@@ -111,7 +111,7 @@ export default function patient_list() {
                         <TableCell>{patient.phone}</TableCell>
                         <TableCell>{patient.email}</TableCell>
                         <TableCell>
-                          <Button variant="outline">Action</Button>
+                          <Button variant="outline">Add Appointment</Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -181,3 +181,4 @@ export default function patient_list() {
       </div>
   );
 }
+
