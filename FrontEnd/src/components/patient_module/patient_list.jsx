@@ -3,19 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Label } from "@/components/ui/label";
+
+
 
 
 export default function patient_list() {
     const [activeTab, setActiveTab] = useState('search');
     const [patients, setPatients] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [newPatient, setNewPatient] = useState({
-      id: "",
-      patient_fname: "",
-      phone: "",
-      email: ""
-    });
 
     useEffect(() => {
       axios.get('http://localhost:8081/patients')
@@ -29,21 +24,6 @@ export default function patient_list() {
 
     const handleSearch = (e) => {
       setSearchQuery(e.target.value);
-    };
-
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setNewPatient({ ...newPatient, [name]: value });
-    };
-    const handleAddPatient = () => {
-      axios.post('http://localhost:8081/patients', newPatient)
-        .then(response => {
-          setPatients([...patients, response.data]);
-          setActiveTab("list");
-        })
-        .catch(error => {
-          console.error("There was an error adding the patient!", error);
-        });
     };
 
     const filteredPatients = searchQuery
@@ -126,53 +106,7 @@ export default function patient_list() {
               <div className="flex justify-center items-center h-full">
                 <div className="bg-white p-4 rounded shadow w-full max-w-md">
                   <h2 className="text-xl font-bold mb-4">Add New Patient</h2>
-                  <div className="mb-4">
-              <Label htmlFor="id">Patient ID</Label>
-              <Input
-                type="text"
-                id="id"
-                name="id"
-                value={newPatient.id}
-                onChange={handleInputChange}
-                className="w-full"
-              />
-            </div>
-            <div className="mb-4">
-              <Label htmlFor="patient_fname">Name</Label>
-              <Input
-                type="text"
-                id="patient_fname"
-                name="patient_fname"
-                value={newPatient.patient_fname}
-                onChange={handleInputChange}
-                className="w-full"
-              />
-            </div>
-            <div className="mb-4">
-              <Label htmlFor="phone">Mobile</Label>
-              <Input
-                type="text"
-                id="phone"
-                name="phone"
-                value={newPatient.phone}
-                onChange={handleInputChange}
-                className="w-full"
-              />
-            </div>
-            <div className="mb-4">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                value={newPatient.email}
-                onChange={handleInputChange}
-                className="w-full"
-              />
-            </div>
-            <Button variant="outline" onClick={handleAddPatient}>
-              Add Patient
-            </Button>
+                  {/* Add your add patient form here */}
                 </div>
               </div>
             </>
