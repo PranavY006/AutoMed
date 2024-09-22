@@ -36,7 +36,7 @@ export default function patient_list() {
           (patient.email && patient.email.toLowerCase().includes(query))
         );
       })
-    : patients;
+    : [];
 
     const handleTabChange = (tab) => {
       setActiveTab(tab);
@@ -73,6 +73,14 @@ export default function patient_list() {
                   </div>
 
                   <div className="overflow-auto">
+                  {searchQuery === "" ? (
+          <div className="flex justify-center items-center h-full">
+          <div className="text-center p-80">
+            <h1 className="text-3xl font-bold mb-4">Add New Patient</h1>
+            <Button onClick={() => handleTabChange('add')}>Add Patient</Button>
+          </div>
+        </div>
+        ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -91,12 +99,13 @@ export default function patient_list() {
                         <TableCell>{patient.phone}</TableCell>
                         <TableCell>{patient.email}</TableCell>
                         <TableCell>
-                          <Button variant="outline">Add Appointment</Button>
+                          <Button >Add Appointment</Button>
                         </TableCell>
                       </TableRow>
                     ))}
-                  </TableBody>
-                </Table>
+                    </TableBody>
+                  </Table>
+                )}
               </div>
                 </div>
               </div>
@@ -106,7 +115,7 @@ export default function patient_list() {
               <div className="flex justify-center items-center h-full">
                 <div className="bg-white p-4 rounded shadow w-full max-w-md">
                   <h2 className="text-xl font-bold mb-4">Add New Patient</h2>
-                  {/* Add your add patient form here */}
+                  <Button>Add karde</Button>
                 </div>
               </div>
             </>
