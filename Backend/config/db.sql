@@ -50,27 +50,3 @@ CREATE TABLE ⁠ patient ⁠ (
   PRIMARY KEY (⁠ patient_id ⁠),
   UNIQUE KEY ⁠ patient_id_UNIQUE ⁠ (⁠ patient_id ⁠)
 ) 
-
-+----------------+--------------+------+-----+---------+----------------+
-| Field          | Type         | Null | Key | Default | Extra          |
-+----------------+--------------+------+-----+---------+----------------+
-| patient_id     | bigint       | NO   | PRI | NULL    | auto_increment |
-| patient_fname  | varchar(45)  | NO   |     | NULL    |                |
-| patient_lname  | varchar(45)  | NO   |     | NULL    |                |
-| patient_mname  | varchar(25)  | NO   |     | NULL    |                |
-| gender         | int          | NO   |     | NULL    |                |
-| birthday       | date         | NO   |     | NULL    |                |
-| address1       | text         | NO   |     | NULL    |                |
-| address2       | text         | NO   |     | NULL    |                |
-| age            | int          | NO   |     | NULL    |                |
-| mobile_no_1    | varchar(25)  | NO   |     | NULL    |                |
-| mobile_no_2    | varchar(25)  | NO   |     | NULL    |                |
-| email_address  | varchar(50)  | NO   |     | NULL    |                |
-| picture        | varchar(100) | NO   |     | NULL    |                |
-| date_entry     | datetime     | NO   |     | NULL    |                |
-| blood_group    | int          | NO   |     | NULL    |                |
-| Insurance_comp | int          | NO   |     | NULL    |                |
-| insurance_no   | varchar(25)  | NO   |     | NULL    |                |
-| id_identifiers | text         | NO   |     | NULL    |                |
-| InActive       | int          | NO   |     | NULL    |                |
-+----------------+--------------+------+-----+---------+----------------+
