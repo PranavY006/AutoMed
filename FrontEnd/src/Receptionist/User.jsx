@@ -51,19 +51,21 @@ function User() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8081/user')
-      .then(res => setUsers(res.data))
-      .catch(err => console.log(err));
+    axios
+      .get('http://localhost:8081/user')
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8081/delete/${id}`)
-      .then(res => window.location.reload())
-      .catch(err => console.log(err));
+    axios
+      .delete(`http://localhost:8081/delete/${id}`)
+      .then((res) => window.location.reload())
+      .catch((err) => console.log(err));
   };
 
   return (
-    <div className='container mt-5 '>
+    <div className="container mt-5 ">
       <Link to="/create" style={styles.button.primary}>
         CREATE USER
       </Link>
@@ -81,18 +83,24 @@ function User() {
             </tr>
           </thead>
           <tbody>
-            {users.map(user => (
+            {users.map((user) => (
               <tr key={user.id} style={styles.tableRow}>
                 <td style={styles.tableCell}>{user.id}</td>
                 <td style={styles.tableCell}>{user.name}</td>
                 <td style={styles.tableCell}>{user.position}</td>
                 <td style={styles.tableCell}>{user.email}</td>
                 <td style={styles.tableCell}>
-                  <Link to={`/update/${user.id}`} style={{ ...styles.button.secondary, ...styles.button.small }}>
+                  <Link
+                    to={`/update/${user.id}`}
+                    style={{
+                      ...styles.button.secondary,
+                      ...styles.button.small,
+                    }}
+                  >
                     UPDATE
                   </Link>
                   <button
-                    type='button'
+                    type="button"
                     style={{ ...styles.button.primary, ...styles.button.small }}
                     onClick={() => handleDelete(user.id)}
                   >
