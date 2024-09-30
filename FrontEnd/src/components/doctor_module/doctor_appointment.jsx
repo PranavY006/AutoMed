@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function doctor_appointment() {
-  return (
-    <div>doctor_appointment</div>
-  )
+  return <div>doctor_appointment</div>;
 }

@@ -9,6 +9,7 @@ import User from './Receptionist/User';
 import Create from './Receptionist/Create';
 import Update from './Receptionist/Update';
 import Patient from './components/patient_module/patient.jsx';
+import Test from './components/test/test.jsx';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Signin />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/test" element={<Test />}></Route>
         <Route path="/doctor" element={<Doctor />}></Route>
         <Route path="/user" element={<Patient />}></Route>
         <Route path="/nurse" element={<Nurse />}></Route>

@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import DoctorApp from "./doctor_appointment";
+import DoctorApp from './doctor_appointment';
 
 export default function Patient() {
   const [activeTab, setActiveTab] = useState('search');
@@ -12,7 +12,7 @@ export default function Patient() {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-  
+
   return (
     <div className="flex h-screen w-full">
       <div className="bg-gray-100 border-r px-4 py-6 flex flex-col gap-4">
@@ -38,14 +38,11 @@ export default function Patient() {
         </Button>
       </div>
       <div className="flex-1 p-6">
-        {activeTab === 'search' && (
-          <DoctorApp />
-        )}
+        {activeTab === 'search' && <DoctorApp />}
         {activeTab === 'add' && (
           <>
             <div className="flex">
-              <h3>Tab 2 doc
-              </h3>
+              <h3>Tab 2 doc</h3>
             </div>
           </>
         )}

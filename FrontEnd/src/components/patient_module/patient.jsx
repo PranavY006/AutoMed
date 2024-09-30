@@ -10,9 +10,19 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table';
+import { Toggle } from '@/components/ui/toggle';
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import PatientAdd from './patient_add';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Label } from '../ui/label';
 
 export default function Patient() {
   const [activeTab, setActiveTab] = useState('search');
@@ -71,6 +81,7 @@ export default function Patient() {
         >
           <FaSearch />
         </Button>
+
         <Button
           variant={activeTab === 'add' ? 'primary' : 'ghost'}
           onClick={() => handleTabChange('add')}
@@ -112,7 +123,36 @@ export default function Patient() {
                         <TableCell>{patient.phone}</TableCell>
                         <TableCell>{patient.email}</TableCell>
                         <TableCell>
-                          <Button>Add Appointment</Button>
+                          <Dialog>
+                            <DialogTrigger>
+                              <Button>Add Appointment</Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>
+                                  Are you absolutely sure?
+                                </DialogTitle>
+                                <div className="flex gap-4">
+                                <Label className="font-bold pt-3">{patient.patient_id}</Label>
+                                <Label>{patient.patient_fname}</Label>
+                                </div> 
+                                <Input
+                                  id="password"
+                                  name="password"
+                                  placeholder="Enter your password"
+                                  type="password"
+                                  required
+                                  className="mb-4"
+                                />
+                                <Button>Hayee</Button>
+                                <DialogDescription>
+                                  This action cannot be undone. This will
+                                  permanently delete your account and remove
+                                  your data from our servers.
+                                </DialogDescription>
+                              </DialogHeader>
+                            </DialogContent>
+                          </Dialog>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -122,6 +162,7 @@ export default function Patient() {
             </div>
           </div>
         )}
+
         {activeTab === 'add' && (
           <>
             <div className="flex">
