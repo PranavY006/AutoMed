@@ -23,13 +23,13 @@ export default function Signin() {
         if (res.data.Status === 'Success') {
           const position = res.data.position;
           if (position === 'admin') {
-            navigate('/home');
+            navigate('/admin');
           } else if (position === 'doctor') {
             navigate('/doctor');
           } else if (position === 'nurse') {
-            navigate('/user');
+            navigate('/nurse');
           } else {
-            navigate('/home1');
+            navigate('/');
           }
         } else {
           alert(res.data.Message);

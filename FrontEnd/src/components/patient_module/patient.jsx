@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   Table,
   TableHeader,
@@ -25,6 +26,54 @@ import {
 import { Label } from '../ui/label';
 
 export default function Patient() {
+  const [auth, setAuth] = useState(false);
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
+  axios.defaults.withCredentials = true;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8081/')
+      .then((res) => {
+        if (res.data.Status === 'Success' && res.data.position === 'nurse') {
+          setAuth(true);
+          setName(res.data.name);
+        } else {
+          setAuth(false);
+          setMessage(
+            res.data.Message || 'You are not authorized to view this page.'
+          );
+          navigate('/'); // Redirect to login page if not authorized
+        }
+      })
+      .catch((error) => {
+        console.error('There was an error checking authorization!', error);
+        setAuth(false);
+        setMessage('An error occurred while checking authorization.');
+        navigate('/'); // Redirect to login page in case of error
+      });
+  }, [navigate]);
+
+  const handleLogout = () => {
+    axios
+      .get('http://localhost:8081/logout')
+      .then((res) => {
+        if (res.data.Status === 'Success') {
+          setAuth(false);
+          setName('');
+          setMessage('You have been logged out.');
+          navigate('/');
+        } else {
+          setMessage('Logout failed. Please try again.');
+        }
+      })
+      .catch((error) => {
+        console.error('There was an error during logout!', error);
+        setMessage('An error occurred while logging out.');
+      });
+  };
   const [activeTab, setActiveTab] = useState('search');
   const [patients, setPatients] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -74,6 +123,7 @@ export default function Patient() {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
+        <Button onClick={() => handleLogout() }>Logout</Button>
         <Button
           variant={activeTab === 'search' ? 'primary' : 'ghost'}
           onClick={() => handleTabChange('search')}

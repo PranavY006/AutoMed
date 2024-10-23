@@ -5,10 +5,10 @@ dotenv.config();
 
 // Create a connection to the database
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME // Optional: Use this if you want to specify a database
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "automed" // Optional: Use this if you want to specify a database
 });
 
 // Connect to the database
